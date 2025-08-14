@@ -1,6 +1,7 @@
 import express from "express";
 import { AuthController } from "../controllers/auth.controller";
 import passport from "passport";
+import { AuthMiddleware } from "../middleware/auth.middleware";
 
 const router = express.Router();
 const authController = new AuthController();
@@ -29,5 +30,9 @@ router.get(
     res.json({ accessToken, user });
   }
 );
+
+router.get("/protected", AuthMiddleware.authenticate, (req, res) => {
+  res.json({ message: "This is a protected route", user: req.user });
+});
 
 export default router;

@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import rateLimit from "express-rate-limit";
 import passport from "passport";
 import { errorHandler } from "./middleware/error.middleware";
+import authRoutes from "./routes/auth.route";
 
 const app = express();
 const PORT = parseInt(EnvConfig.get("PORT", "6969"));
@@ -27,11 +28,13 @@ app.use(
 );
 app.use(passport.initialize());
 
-app.use(errorHandler);
-
+// Import routes
 app.get("/", (req, res) => {
   res.send("Hello, World!");
 });
+app.use("/auth", authRoutes);
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(

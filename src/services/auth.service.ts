@@ -9,7 +9,7 @@ import { EnvConfig } from "../config/env";
 export class AuthService {
   private userRepo = new UserRepository();
 
-  public generateToken(user: { id: string; email: string }) {
+  private generateToken(user: { id: string; email: string }) {
     const payload = { userId: user.id, email: user.email };
 
     const accessToken = JwtUtils.sign(payload, EnvConfig.get("JWT_SECRET"), {
@@ -23,6 +23,10 @@ export class AuthService {
     );
 
     return { accessToken, refreshToken, user };
+  }
+
+  public generateTokenForOAuth(user: { id: string; email: string }) {
+    return this.generateToken(user);
   }
 
   async register(data: z.infer<typeof registerSchema>) {

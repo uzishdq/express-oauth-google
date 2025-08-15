@@ -39,7 +39,7 @@ passport.use(
           }
         }
 
-        const tokens = authService.generateToken(user);
+        const tokens = authService.generateTokenForOAuth(user);
 
         return done(null, { user, tokens });
       } catch (error) {

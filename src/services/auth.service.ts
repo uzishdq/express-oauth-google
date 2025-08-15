@@ -9,7 +9,7 @@ import { EnvConfig } from "../config/env";
 export class AuthService {
   private userRepo = new UserRepository();
 
-  private generateToken(user: { id: string; email: string }) {
+  public generateToken(user: { id: string; email: string }) {
     const payload = { userId: user.id, email: user.email };
 
     const accessToken = JwtUtils.sign(payload, EnvConfig.get("JWT_SECRET"), {

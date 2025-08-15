@@ -3,9 +3,10 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 
 import * as schema from "./schema";
+import { EnvConfig } from "../config/env";
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL!,
+  connectionString: EnvConfig.get("DATABASE_URL"),
 });
 
 export const db = drizzle(pool, { schema });
